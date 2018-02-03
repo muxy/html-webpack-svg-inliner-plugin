@@ -1,5 +1,5 @@
 {
-    "name": "html-webpack-inline-svg-plugin",
+    "name": "html-webpack-svg--inliner-plugin",
     "version": "1.0.3",
     "description": "Embed svg inline when using the html webpack plugin",
     "main": "index.js",
@@ -15,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/thegc/html-webpack-inline-svg-plugin.git"
+        "url": "https://github.com/theKashey/html-webpack-svg-inliner-plugin.git"
     },
     "keywords": [
         "webpack",
@@ -26,10 +26,7 @@
     ],
     "author": "Guy Campbell (https://github.com/thegc)",
     "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/thegc/html-webpack-inline-svg-plugin/issues"
-    },
-    "homepage": "https://github.com/thegc/html-webpack-inline-svg-plugin",
+    "homepage": "https://github.com/theKashey/html-webpack-svg-inliner-plugin",
     "devDependencies": {
         "file-loader": "^1.1.6",
         "html-loader": "^0.5.5",

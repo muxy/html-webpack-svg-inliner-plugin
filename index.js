@@ -8,6 +8,36 @@ const fs = require('fs')
 const SVGO = require('svgo')
 const svgoDefaultConfig = require(path.resolve(__dirname, 'svgo-config.js'))
 
+const selfProps = ['inline','src'];
+
+const getImageAttribute = (inlineImage, attributeName) => {
+  const svgSrcObject = _.find(inlineImage.attrs, { name: attributeName })
+
+  // image does not have a src attribute
+
+  if (!svgSrcObject) return ''
+
+
+  // grab the image src
+
+  return svgSrcObject.value
+}
+
+const spreadAttributes = ({attrs: attributes}, svgString) => {
+  const copyAttrs = [];
+  attributes.forEach( ({name, value}) => {
+    if (!selfProps.includes(name)) {
+        if(value) {
+          copyAttrs.push(`${name}="${value}"`)
+        }else {
+          copyAttrs.push(name);
+        }
+    }
+  });
+  return copyAttrs.length
+    ? svgString.replace('<svg ','<svg '+copyAttrs.join(' ')+' ')
+    : svgString
+}
 
 /**
  * class to inline SVGs within html-webpack-plugin templates
@@ -17,10 +47,8 @@ class HtmlWebpackInlineSVGPlugin {
 
     constructor (options) {
 
-        if (typeof options !== 'undefined') console.log(chalk.yellow('The HtmlWebpackInlineSVGPlugin does not accept any options'))
-
         this.userConfig = ''
-        this.outputPath = ''
+        this.outputPath = (options ? options.path : '') || ''
 
         this.files = []
 
@@ -44,10 +72,11 @@ class HtmlWebpackInlineSVGPlugin {
 
                 // fetch the output path from webpack
 
-                this.outputPath = compilation.outputOptions &&
-                    compilation.outputOptions.path ?
-                    compilation.outputOptions.path :
-                    ''
+                this.outputPath =
+                  this.outputPath ||
+                    compilation.outputOptions &&
+                    compilation.outputOptions.path ||
+                    '';
 
                 if (!this.outputPath) {
 
@@ -362,7 +391,6 @@ class HtmlWebpackInlineSVGPlugin {
 
     }
 
-
     /**
      * get an inlined images src
      * @param {Object} inlineImage - parse5 document
@@ -370,18 +398,9 @@ class HtmlWebpackInlineSVGPlugin {
      *
      */
     getImagesSrc (inlineImage) {
-
-        const svgSrcObject = _.find(inlineImage.attrs, { name: 'src' })
-
-
-        // image does not have a src attribute
-
-        if (!svgSrcObject) return ''
-
-
         // grab the image src
 
-        const svgSrc = svgSrcObject.value
+        const svgSrc = getImageAttribute(inlineImage, 'src')
 
 
         // image src attribute must not be blank and it must be referencing a file with a .svg extension
@@ -436,7 +455,11 @@ class HtmlWebpackInlineSVGPlugin {
 
                         const optimisedSVG = result.data
 
-                        html = this.replaceImageWithSVG(html, inlineImage, optimisedSVG)
+                        html = this.replaceImageWithSVG(
+                          html,
+                          inlineImage,
+                          spreadAttributes(inlineImage, optimisedSVG)
+                        )
 
                         resolve(html)
 
