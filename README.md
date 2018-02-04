@@ -1,6 +1,14 @@
+this is an improved fork of `html-webpack-inline-svg-plugin`.
+```
+ yarn add webpack-html-plugin-svg-inline
+```
+The differences:
+ 1. webpack-html-plugin-svg-inline will transfer all the props, except inline and src to the inlined node.
+ 2. webpack-html-plugin-svg-inline will work with webpack-dev-server, ie during developement, as long the original plugin will work only for production builds.  
+
 Inline SVG extension for the HTML Webpack Plugin
 ========================================
-[![npm version](https://badge.fury.io/js/html-webpack-inline-svg-plugin.svg)](https://badge.fury.io/js/html-webpack-inline-svg-plugin) [![Build status](https://travis-ci.org/theGC/html-webpack-inline-svg-plugin.svg)](https://travis-ci.org/theGC/html-webpack-inline-svg-plugin)
+[![npm version](https://badge.fury.io/js/webpack-html-plugin-svg-inline.svg)](https://badge.fury.io/js/webpack-html-plugin-svg-inline) [![Build status](https://travis-ci.org/theGC/webpack-html-plugin-svg-inline.svg)](https://travis-ci.org/theGC/webpack-html-plugin-svg-inline)
 
 Convert .svg files into inline SVG tags within the output html of templates parsed by [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin).
 
@@ -16,12 +24,12 @@ The plugin relies on [svgo](https://github.com/svg/svgo) to optimise SVGs. You c
 
 Install the plugin with npm:
 ```shell
-$ npm install --save-dev html-webpack-inline-svg-plugin
+$ npm install --save-dev webpack-html-plugin-svg-inline
 ```
 
 **or** [yarn](https://yarnpkg.com/):
 ```shell
-$ yarn add html-webpack-inline-svg-plugin --dev
+$ yarn add webpack-html-plugin-svg-inline --dev
 ```
 
 ## Usage
@@ -29,7 +37,7 @@ $ yarn add html-webpack-inline-svg-plugin --dev
 Require the plugin in your webpack config:
 
 ```javascript
-const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
+const HtmlWebpackInlineSVGPlugin = require('webpack-html-plugin-svg-inline');
 ```
 
 Add the plugin to your webpack config as follows:
@@ -117,4 +125,4 @@ You're free to contribute to this project by submitting issues and/or pull reque
 
 ## License
 
-This project is licensed under [MIT](https://github.com/theGC/html-webpack-inline-svg-plugin/blob/master/LICENSE).
+This project is licensed under [MIT](https://github.com/theGC/webpack-html-plugin-svg-inline/blob/master/LICENSE).

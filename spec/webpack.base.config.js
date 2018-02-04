@@ -69,7 +69,7 @@ module.exports = {
             }),
             new HtmlWebpackPlugin({
                 filename: path.resolve(OUTPUT_DIR, 'partial.html'),
-                template: path.join(__dirname, 'fixtures', 'partial.html'),
+                template: path.join(__dirname, 'fixtures', 'sub/partial.html'),
             }),
             new HtmlWebpackInlineSVGPlugin(),
         ],

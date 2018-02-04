@@ -58,7 +58,7 @@ describe('HtmlWebpackInlineSVGPlugin', function () {
 
             var $ = cheerio.load(data)
 
-            expect($('svg#inline-me').length).toBe(1)
+            expect($('svg[data-svg-id="inline-me"]').length).toBe(2)
 
             done()
 
@@ -76,7 +76,7 @@ describe('HtmlWebpackInlineSVGPlugin', function () {
 
             var $ = cheerio.load(data)
 
-            expect($('#replace-me').length).toBe(0)
+            expect($('#replace-me[data-svg-id="inline-me"]').length).toBe(1)
 
             done()
 
@@ -94,7 +94,7 @@ describe('HtmlWebpackInlineSVGPlugin', function () {
 
             var $ = cheerio.load(data)
 
-            expect($('#then-replace-me').length).toBe(0)
+            expect($('[inline="then-replace-me"]').length).toBe(0)
 
             done()
 
@@ -196,7 +196,7 @@ describe('HtmlWebpackInlineSVGPlugin', function () {
 
             var $ = cheerio.load(data)
 
-            expect($('#deep-replace-me').length).toBe(0)
+            expect($('#deep-replace-me').length).toBe(1)
 
             done()
 
@@ -214,7 +214,7 @@ describe('HtmlWebpackInlineSVGPlugin', function () {
 
             var $ = cheerio.load(data)
 
-            expect($('svg#deep-inline-me').length).toBe(1)
+            expect($('svg#deep-inline-me').length).toBe(0)
 
             done()
 
